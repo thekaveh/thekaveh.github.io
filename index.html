@@ -201,27 +201,24 @@
       50.01%, 100% { opacity: 0; }
     }
 
-    .hero pre.block-art {
-      margin: 18px 0 20px;
-      font-family: var(--mono-box);
-      font-weight: 700;
-      font-size: clamp(11px, 1.9vw, 24px);
-      line-height: 1.05;
-      letter-spacing: 0;
-      text-align: center;
-      text-shadow: 0 0 12px rgba(74,158,255,0.20);
+    /* KAVEH block art rendered as a PNG baked from the real
+       JetBrains Mono Bold via PIL — guaranteed to render identically
+       across browsers / OS / font-rendering environments. The previous
+       @font-face attempt was failing silently (headless screenshot
+       confirmed the user's report). */
+    .hero img.block-art {
+      display: block;
+      margin: 22px auto 24px;
+      max-width: min(780px, 88%);
+      width: 100%;
+      height: auto;
+      filter: drop-shadow(0 0 18px rgba(74,158,255,0.18));
+      animation: glowBreath 5s ease-in-out infinite;
     }
-    .hero pre.block-art .row { display: block; animation: glowBreath 5s ease-in-out infinite; }
     @keyframes glowBreath {
-      0%, 100% { filter: drop-shadow(0 0 1.2px currentColor); }
-      50%      { filter: drop-shadow(0 0 2.4px currentColor); }
+      0%, 100% { filter: drop-shadow(0 0 12px rgba(74,158,255,0.18)); }
+      50%      { filter: drop-shadow(0 0 22px rgba(74,158,255,0.30)); }
     }
-    .hero pre.block-art .r1 { color: var(--bl-1); }
-    .hero pre.block-art .r2 { color: var(--bl-2); }
-    .hero pre.block-art .r3 { color: var(--bl-3); }
-    .hero pre.block-art .r4 { color: var(--bl-4); }
-    .hero pre.block-art .r5 { color: var(--bl-5); }
-    .hero pre.block-art .r6 { color: var(--bl-6); }
 
     .hero .tagline {
       display: flex;
@@ -505,12 +502,7 @@
 
       <div class="prompt">$ render_name --text KAVEH --style block-logo --gradient logo<span class="cursor"></span></div>
 
-      <pre class="block-art"><span class="row r1">██╗  ██╗ █████╗ ██╗   ██╗███████╗██╗  ██╗</span>
-<span class="row r2">██║ ██╔╝██╔══██╗██║   ██║██╔════╝██║  ██║</span>
-<span class="row r3">█████╔╝ ███████║██║   ██║█████╗  ███████║</span>
-<span class="row r4">██╔═██╗ ██╔══██║╚██╗ ██╔╝██╔══╝  ██╔══██║</span>
-<span class="row r5">██║  ██╗██║  ██║ ╚████╔╝ ███████╗██║  ██║</span>
-<span class="row r6">╚═╝  ╚═╝╚═╝  ╚═╝  ╚═══╝  ╚══════╝╚═╝  ╚═╝</span></pre>
+      <img class="block-art" src="./assets/kaveh-hero.png" alt="KAVEH" width="2401" height="782" />
 
       <div class="tagline">
         <span class="cyan">Lead Staff Software Engineer</span>
