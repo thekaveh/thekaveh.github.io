@@ -65,6 +65,7 @@
 
     * { box-sizing: border-box; }
 
+    html { scroll-behavior: smooth; }
     html, body {
       margin: 0;
       padding: 0;
@@ -156,9 +157,21 @@
     .section-head {
       display: flex;
       align-items: baseline;
-      gap: 22px;
+      gap: 14px;
       flex-wrap: wrap;
-      margin: 4px 0 18px;
+      margin: 4px 0 20px;
+    }
+    .section-head .sec-num {
+      display: inline-block;
+      padding: 5px 11px;
+      background: var(--tn-surface-2);
+      border: 1px solid var(--tn-border);
+      border-radius: 6px;
+      color: var(--tn-cyan);
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.20em;
     }
     .section-head h2 {
       margin: 0;
@@ -169,6 +182,13 @@
       letter-spacing: 0.02em;
     }
     .section-head .ps { color: var(--tn-cyan); font-weight: 600; font-size: 14px; }
+    .section-head .ps::after {
+      content: "█";
+      color: var(--tn-bright);
+      margin-left: 6px;
+      animation: blink 1.1s steps(1) infinite;
+      vertical-align: -2px;
+    }
     .section-head .sub {
       width: 100%;
       color: var(--tn-comment);
@@ -373,7 +393,10 @@
     }
     .cat:hover {
       border-color: var(--cat-accent-edge);
-      box-shadow: 0 10px 32px rgba(0,0,0,0.20), 0 0 0 1px var(--cat-accent-soft) inset;
+      box-shadow:
+        0 14px 44px rgba(0,0,0,0.30),
+        0 0 0 1px var(--cat-accent-soft) inset,
+        0 0 30px var(--cat-accent-soft);
     }
     .cat::before {
       content: "";
@@ -385,7 +408,20 @@
       border-radius: 3px;
       background: linear-gradient(180deg, var(--cat-accent), transparent);
       opacity: 0.45;
+      animation: accentShimmer 6s ease-in-out infinite;
     }
+    @keyframes accentShimmer {
+      0%, 100% { opacity: 0.30; }
+      50%      { opacity: 0.80; }
+    }
+    /* Stagger the shimmer so all 7 cats don't pulse in unison. */
+    .cat:nth-of-type(1) ::before { animation-delay: 0.0s; }
+    .cat:nth-of-type(2) ::before { animation-delay: 0.6s; }
+    .cat:nth-of-type(3) ::before { animation-delay: 1.2s; }
+    .cat:nth-of-type(4) ::before { animation-delay: 1.8s; }
+    .cat:nth-of-type(5) ::before { animation-delay: 2.4s; }
+    .cat:nth-of-type(6) ::before { animation-delay: 3.0s; }
+    .cat:nth-of-type(7) ::before { animation-delay: 3.6s; }
 
     .cat .head {
       display: flex;
@@ -451,8 +487,11 @@
     .badge:hover {
       border-color: var(--cat-accent);
       color: var(--cat-accent);
-      transform: translateY(-1px);
-      box-shadow: 0 4px 14px rgba(0,0,0,0.25), 0 0 0 1px var(--cat-accent-soft);
+      transform: translateY(-1px) scale(1.04);
+      box-shadow:
+        0 4px 14px rgba(0,0,0,0.30),
+        0 0 0 1px var(--cat-accent-soft),
+        0 0 14px var(--cat-accent-soft);
     }
 
     /* Per-category accent assignments. Order matches the JS-rendered cats. */
@@ -550,6 +589,24 @@
       padding: 14px 0 0;
       letter-spacing: 0.04em;
     }
+
+    /* Scroll-triggered fade-in for everything that's a "tile":
+       category cards, project cards, service cards, section panels.
+       Starts at 0 opacity + 12px down, lands at 0/0 over 600ms. */
+    .reveal {
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .reveal.shown {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal, .reveal.shown { opacity: 1; transform: none; transition: none; }
+      .cat::before, .section-head .ps::after { animation: none; }
+      .hero img.block-art { animation: none; }
+    }
   </style>
 </head>
 <body>
@@ -605,33 +662,34 @@
   <!-- ============================================================
        PROJECTS
        ============================================================ -->
-  <section class="panel">
+  <section class="panel reveal">
     <div class="section-head">
+      <span class="sec-num">[ 01 ]</span>
       <h2>▸ Projects</h2>
       <span class="ps">$ ls ~/projects/</span>
     </div>
     <div class="projects-grid">
-      <a class="card" href="https://github.com/thekaveh/genai-vanilla">
+      <a class="card reveal" href="https://github.com/thekaveh/genai-vanilla">
         <h3>▸ genai-vanilla</h3>
         <p>Modular GenAI stack with a Textual TUI bootstrapper — orchestrates 30+ services.</p>
         <span class="open">OPEN ▸</span>
       </a>
-      <a class="card" href="https://github.com/thekaveh/GuideArch">
+      <a class="card reveal" href="https://github.com/thekaveh/GuideArch">
         <h3>▸ GuideArch</h3>
         <p>Fuzzy TOPSIS architecture-decision tool — three concurrent implementations sharing one spec.</p>
         <span class="open">OPEN ▸</span>
       </a>
-      <a class="card" href="https://github.com/thekaveh/NNx">
+      <a class="card reveal" href="https://github.com/thekaveh/NNx">
         <h3>▸ NNx</h3>
         <p>PyTorch training / eval / visualization toolkit with first-class GNN support.</p>
         <span class="open">OPEN ▸</span>
       </a>
-      <a class="card" href="https://github.com/thekaveh/VMx">
+      <a class="card reveal" href="https://github.com/thekaveh/VMx">
         <h3>▸ VMx</h3>
         <p>Lifecycle-aware MVVM framework — one spec, four language flavors (C# · Python · TypeScript · Swift), 232 conformance tests.</p>
         <span class="open">OPEN ▸</span>
       </a>
-      <a class="card" href="https://github.com/thekaveh/ml-lab">
+      <a class="card reveal" href="https://github.com/thekaveh/ml-lab">
         <h3>▸ ml-lab</h3>
         <p>Personal ML lab — portfolio of self-contained <code>[task]-[dataset]-[model]-[framework]</code> experiments built on <code>nnx</code>.</p>
         <span class="open">OPEN ▸</span>
@@ -642,8 +700,9 @@
   <!-- ============================================================
        SKILLS — each category is its OWN bordered card
        ============================================================ -->
-  <section class="panel">
+  <section class="panel reveal">
     <div class="section-head">
+      <span class="sec-num">[ 02 ]</span>
       <h2>▸ Skills</h2>
       <span class="ps">$ cat ~/skills/*</span>
     </div>
@@ -653,23 +712,24 @@
   <!-- ============================================================
        CONNECT
        ============================================================ -->
-  <section class="panel">
+  <section class="panel reveal">
     <div class="section-head">
+      <span class="sec-num">[ 03 ]</span>
       <h2>▸ Connect</h2>
       <span class="ps">$ ./connect</span>
     </div>
     <div class="connect-grid">
-      <a class="service linkedin" href="https://linkedin.com/in/kavehrazavi">
+      <a class="service linkedin reveal" href="https://linkedin.com/in/kavehrazavi">
         <div class="label">▸ LinkedIn</div>
         <div class="handle">linkedin.com/in/kavehrazavi</div>
         <span class="open">OPEN ▸</span>
       </a>
-      <a class="service email" href="mailto:kaveh.razavi@gmail.com">
+      <a class="service email reveal" href="mailto:kaveh.razavi@gmail.com">
         <div class="label">▸ Email</div>
         <div class="handle">kaveh.razavi@gmail.com</div>
         <span class="open">OPEN ▸</span>
       </a>
-      <a class="service github" href="https://github.com/thekaveh">
+      <a class="service github reveal" href="https://github.com/thekaveh">
         <div class="label">▸ GitHub</div>
         <div class="handle">github.com/thekaveh</div>
         <span class="open">OPEN ▸</span>
@@ -721,7 +781,7 @@ const host = document.getElementById("skills-host");
 SKILLS.forEach(([icon, step, title, slug, subs]) => {
   const total = subs.reduce((n, [, items]) => n + items.length, 0);
   const cat  = document.createElement("section");
-  cat.className = "cat";
+  cat.className = "cat reveal";
 
   const head = document.createElement("div");
   head.className = "head";
@@ -753,6 +813,24 @@ SKILLS.forEach(([icon, step, title, slug, subs]) => {
 
   host.appendChild(cat);
 });
+
+/* Scroll-triggered reveal — IntersectionObserver flips `.shown` on
+   tiles as they enter the viewport. Plays once per element. */
+(function () {
+  if (!("IntersectionObserver" in window)) {
+    document.querySelectorAll(".reveal").forEach(el => el.classList.add("shown"));
+    return;
+  }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add("shown");
+        io.unobserve(e.target);
+      }
+    });
+  }, { rootMargin: "0px 0px -8% 0px", threshold: 0.05 });
+  document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+})();
 </script>
 </body>
 </html>
