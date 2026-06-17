@@ -836,6 +836,28 @@ SKILLS.forEach(([icon, step, title, slug, subs]) => {
   }, { rootMargin: "0px 0px -8% 0px", threshold: 0.05 });
   document.querySelectorAll(".reveal").forEach(el => io.observe(el));
 })();
+
+/* Deep-link landing — the Skills section is built above at parse time
+   and web fonts load async, so the browser's initial #hash jump fires
+   before layout settles and ends up back at the top. Re-apply it once
+   the DOM is built, on load, and after fonts settle, forcing an exact
+   (non-smooth) landing so it can't drift. */
+(function () {
+  function jump() {
+    if (!location.hash || location.hash.length < 2) return;
+    var el;
+    try { el = document.querySelector(location.hash); } catch (_) { return; }
+    if (!el) return;
+    el.classList.add("shown");                       // don't land mid-reveal
+    var root = document.documentElement, prev = root.style.scrollBehavior;
+    root.style.scrollBehavior = "auto";              // override CSS smooth for an exact landing
+    el.scrollIntoView({ block: "start" });
+    root.style.scrollBehavior = prev;
+  }
+  jump();                                            // after skills are injected
+  window.addEventListener("load", jump);             // after images
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(jump); // after fonts reflow
+})();
 </script>
 </body>
 </html>
