@@ -573,13 +573,16 @@
     .service .open    {
       display: inline-block;
       margin-top: 12px;
-      font-size: 10px;
+      padding: 3px 10px;
+      border: 1px solid;
+      border-radius: 9px;
+      font-size: 9px;
       font-weight: 700;
       letter-spacing: 0.12em;
     }
-    .service.linkedin .open { color: var(--tn-tk-blue); }
-    .service.email    .open { color: var(--tn-green); }
-    .service.github   .open { color: var(--tn-purple); }
+    .service.linkedin .open { color: var(--tn-tk-blue); background: rgba(122,162,247,0.10); border-color: rgba(122,162,247,0.55); }
+    .service.email    .open { color: var(--tn-green);   background: rgba(158,206,106,0.10); border-color: rgba(158,206,106,0.55); }
+    .service.github   .open { color: var(--tn-purple);  background: rgba(187,154,247,0.10); border-color: rgba(187,154,247,0.55); }
 
     /* Footer */
     footer {
