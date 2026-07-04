@@ -10,7 +10,7 @@ A single self-contained `index.html` (HTML + embedded CSS + a small inline `<scr
 
 - **Palette:** Tokyo Night, exact values from the approved `q5-skill-expansion-v7` mockup.
 - **Hero block-art KAVEH:** real JetBrains Mono Bold (loaded from Google Fonts), per-row gradient from the atlas `BlockLogo` Textual widget — `#74A6F4` at the top monotonically darkening to `#0A1A55`. Subtle breathing glow + blinking cursor on the prompt line.
-- **Sections:** terminal-windowed Hero (block-art + tagline + identity TS card + mission), Projects (grid of repo cards), Skills (7 categories · 135 badges), Connect (LinkedIn / Email / GitHub service cards).
+- **Sections:** terminal-windowed Hero (block-art + tagline + identity TS card + mission), Projects (grid of repo cards), Skills (7 categories · 134 badges), Connect (LinkedIn / Email / GitHub service cards).
 - **Responsive:** grid collapses 3→2→1 columns on narrower viewports.
 
 ## Where the markdown-rendered profile lives

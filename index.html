@@ -365,6 +365,14 @@
       font-weight: 700;
       letter-spacing: 0.12em;
     }
+    .card .site {
+      display: block;
+      margin-top: 12px;
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--tn-cyan);
+      opacity: 0.92;
+    }
 
     /* ============================================================
        Skills — each category is its OWN bordered card with header
@@ -645,7 +653,7 @@
   <span class="prop">role</span><span class="punc">: </span><span class="str">"Lead Staff Software Engineer | Data &amp; ML Engineering"</span><span class="punc">,</span>
   <span class="prop">trajectory</span><span class="punc">: </span><span class="str">"Software Engineering → ML/AI Research &amp; Engineering"</span><span class="punc">,</span>
   <span class="prop">education</span><span class="punc">: [</span>
-    <span class="str">"M.Eng Machine Learning @ Virginia Tech"</span><span class="punc">,</span>
+    <span class="str">"M.Eng Computer Science (ML) @ Virginia Tech"</span><span class="punc">,</span>
     <span class="str">"M.Sc Software Engineering @ George Mason University"</span>
   <span class="punc">],</span>
   <span class="prop">currentFocus</span><span class="punc">: [</span>
@@ -674,12 +682,18 @@
     <div class="projects-grid">
       <a class="card reveal" href="https://github.com/thekaveh/atlas">
         <h3>▸ atlas</h3>
-        <p>Self-hosted, source-configurable engineering platform — gen-AI, ML &amp; data — composable from a single Docker Compose stack. 30+ OSS services (Ollama · LiteLLM · Supabase · n8n · Airflow · Spark · Weaviate · Neo4j · JupyterHub · Ray …) pre-wired behind Kong. Interactive TUI wizard, one-command launch.</p>
+        <p>Self-hosted, source-configurable, multi-disciplinary engineering platform — Gen-AI, ML &amp; data — composable from a single Docker Compose stack. 30+ OSS services (Ollama · LiteLLM · Supabase · n8n · Airflow · Spark · Weaviate · Neo4j · JupyterHub · Ray …) pre-wired behind Kong. Interactive TUI wizard, selectable tracks, one-command launch.</p>
+        <span class="open">OPEN ▸</span>
+      </a>
+      <a class="card reveal" href="https://github.com/thekaveh/rag-showcase">
+        <h3>▸ rag-showcase</h3>
+        <p>Six RAG strategies — vanilla, hybrid, contextual, graph, agentic, and n8n-adaptive — served as OpenAI-compatible endpoints selectable from the Open WebUI model picker on a fully-local Atlas stack, with a reproducible LLM judge-panel harness that measures which approach wins on which kind of question.</p>
         <span class="open">OPEN ▸</span>
       </a>
       <a class="card reveal" href="https://github.com/thekaveh/NNx">
         <h3>▸ NNx</h3>
         <p>Lightweight PyTorch toolkit for training, fine-tuning, and exporting modern neural nets. FFN + GNN + decoder-only LM + diffusion + JEPA + MoE; PEFT (LoRA/DoRA/IA3/Prefix/Prompt), PTQ/QAT, pruning, surgery; ONNX/GGUF/Ollama/HuggingFace Hub interop. Dataclass-configured runs with fluent builders, automatic checkpointing, Plotly viz.</p>
+        <span class="site">▸ thekaveh.github.io/NNx</span>
         <span class="open">OPEN ▸</span>
       </a>
       <a class="card reveal" href="https://github.com/thekaveh/ml-lab">
@@ -699,7 +713,7 @@
       </a>
       <a class="card reveal" href="https://github.com/thekaveh/GuideArch">
         <h3>▸ GuideArch</h3>
-        <p>Fuzzy multi-criteria decision analysis (TOPSIS) for software architecture. Three v1.0 implementations — TypeScript+Tauri+Svelte, C#+Avalonia, Python+NiceGUI — kept in lockstep by a shared language-neutral spec and a 1e-9-tolerance cross-impl conformance corpus. Built on <code>VMx</code> MVVM.</p>
+        <p>Fuzzy multi-criteria decision analysis (TOPSIS) for software architecture. Three v1.0 implementations — TypeScript+Tauri+Svelte, C#+Avalonia, Python+NiceGUI — kept in lockstep by a shared language-neutral spec and a 1e-9-tolerance cross-impl conformance corpus. Built on <code>VMx</code> MVVM. Second-gen rebuild of the original Silverlight GuideArch.</p>
         <span class="open">OPEN ▸</span>
       </a>
       <a class="card reveal" href="https://github.com/thekaveh/LinguAI">
@@ -777,7 +791,7 @@ const SKILLS = [
     ["Big Data & Pipelines", ["Scala Spark","PySpark","Apache Airflow","Apache Iceberg","Apache Hadoop","HDFS","Apache Zeppelin","AWS EMR Serverless","MapR"]],
   ]],
   ["🧠", "6", "Machine Learning", "ml", [
-    [null, ["PyTorch","PyTorch Lightning","PyTorch Geometric","scikit-learn","Pandas","NumPy","Jupyter","ONNX","HuggingFace Transformers","sentence-transformers","Embeddings","spaCy","Diffusers","NetworkX","FAISS","multi2vec-clip"]],
+    [null, ["PyTorch","PyTorch Lightning","PyTorch Geometric","scikit-learn","Pandas","NumPy","Jupyter","ONNX","HuggingFace Transformers","sentence-transformers","Embeddings","Federated Learning","spaCy","Diffusers","NetworkX","FAISS","multi2vec-clip"]],
   ]],
   ["✨", "7", "GenAI", "genai", [
     ["Agent frameworks", ["LangChain","LangGraph","CrewAI","AutoGen","Pydantic AI"]],
@@ -786,7 +800,7 @@ const SKILLS = [
     ["Harnesses", ["Cursor","Cline","Claude Code","OpenCode","KiloCode","Hermes Agent","OpenClaw","Deep Researcher"]],
     ["RAG", ["RAG","LightRAG","RAG-Anything","Vanilla RAG","Docling"]],
     ["GenAI Media", ["Parakeet","Chatterbox","ComfyUI"]],
-    ["Workflows & UIs", ["LangFuse","n8n","Open WebUI"]],
+    ["Workflows & UIs", ["LangFuse","LLMOps","n8n","Open WebUI"]],
   ]],
 ];
 
