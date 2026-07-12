@@ -291,63 +291,57 @@
     }
 
     .hero-status {
-      margin: 4px 0 22px;
-      padding: 13px 14px 14px;
-      background:
-        linear-gradient(180deg, rgba(74,158,255,0.07), transparent 72%),
-        var(--tn-surface-2);
-      border: 1px solid rgba(125,207,255,0.28);
-      border-radius: 12px;
-      box-shadow:
-        inset 0 1px 0 rgba(180,249,248,0.05),
-        0 12px 32px rgba(74,158,255,0.10);
-    }
-    .status-command {
-      margin: 0 0 11px;
-      color: var(--tn-cyan);
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-    }
-    .status-command::after {
-      content: "█";
-      color: var(--tn-bright);
-      margin-left: 6px;
-      animation: blink 1.1s steps(1) infinite;
-      vertical-align: -1px;
-    }
-    .status-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 10px;
-    }
-    .status-item {
       --status-accent: var(--tn-cyan);
-      min-width: 0;
-      padding: 10px 11px;
-      background: rgba(12,17,29,0.54);
-      border: 1px solid color-mix(in srgb, var(--status-accent) 42%, transparent);
-      border-left-width: 3px;
-      border-radius: 8px;
+      --cat-accent: var(--tn-cyan);
+      --cat-accent-soft: rgba(125,207,255,0.10);
+      margin: 0 0 22px;
+      padding: 15px 18px 16px;
+      background:
+        linear-gradient(180deg, rgba(74,158,255,0.05), transparent),
+        var(--tn-surface-2);
+      border: 1px solid var(--tn-border);
+      border-radius: 10px;
     }
-    .status-item[data-status="role"] { --status-accent: var(--tn-cyan); }
-    .status-item[data-status="domain"] { --status-accent: var(--tn-glacier); }
-    .status-item[data-status="stack"] { --status-accent: var(--tn-green); }
-    .status-key {
-      display: block;
-      margin-bottom: 5px;
+    .status-row {
+      display: grid;
+      grid-template-columns: 132px minmax(0, 1fr);
+      align-items: baseline;
+      gap: 14px;
+      padding: 7px 0;
+      border-bottom: 1px dashed rgba(125,207,255,0.16);
+    }
+    .status-row:last-child { border-bottom: 0; }
+    .status-row[data-status="role"] { --status-accent: var(--tn-cyan); }
+    .status-row[data-status="domain"] { --status-accent: var(--tn-glacier); }
+    .status-row[data-status="current"] { --status-accent: var(--tn-orange); }
+    .status-row[data-status="ml-genai"] {
+      --status-accent: var(--tn-purple);
+      --cat-accent: var(--tn-purple);
+      --cat-accent-soft: rgba(187,154,247,0.10);
+    }
+    .status-row[data-status="data-systems"] {
+      --status-accent: var(--tn-green);
+      --cat-accent: var(--tn-green);
+      --cat-accent-soft: rgba(158,206,106,0.10);
+    }
+    .status-label {
       color: var(--status-accent);
-      font-size: 9px;
+      font-size: 10px;
       font-weight: 800;
       letter-spacing: 0.18em;
     }
-    .status-value {
-      display: block;
+    .status-text {
       color: var(--tn-fg);
       font-size: 12px;
       font-weight: 700;
       line-height: 1.35;
       overflow-wrap: anywhere;
+    }
+    .status-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      min-width: 0;
     }
 
     hr.div { border: 0; border-top: 1px dashed var(--tn-border); margin: 22px 0; opacity: 0.7; }
@@ -786,21 +780,17 @@
       }
 
       .hero-status {
-        margin: 2px 0 18px;
+        margin: 0 0 18px;
         padding: 12px;
       }
 
-      .status-command {
-        font-size: 11px;
-        overflow-wrap: anywhere;
-      }
-
-      .status-grid {
+      .status-row {
         grid-template-columns: 1fr;
-        gap: 8px;
+        gap: 5px;
+        padding: 9px 0;
       }
 
-      .status-value {
+      .status-text {
         font-size: 11.5px;
       }
 
@@ -927,21 +917,38 @@
 
       <img class="block-art" src="./assets/kaveh-hero.png" alt="KAVEH" width="2401" height="782" />
 
+      <div class="prompt profile-status-prompt">$ cat ./profile.status</div>
       <div class="hero-status" aria-label="Profile status">
-        <div class="status-command">$ profile --status</div>
-        <div class="status-grid">
-          <div class="status-item" data-status="role">
-            <span class="status-key">ROLE</span>
-            <span class="status-value">Lead Staff Software Engineer</span>
-          </div>
-          <div class="status-item" data-status="domain">
-            <span class="status-key">DOMAIN</span>
-            <span class="status-value">Data, ML &amp; GenAI Systems</span>
-          </div>
-          <div class="status-item" data-status="stack">
-            <span class="status-key">STACK</span>
-            <span class="status-value">Spark · Airflow · AWS · Agentic AI Workflows</span>
-          </div>
+        <div class="status-row" data-status="role">
+          <span class="status-label">ROLE</span>
+          <span class="status-text">Lead Staff Software Engineer</span>
+        </div>
+        <div class="status-row" data-status="domain">
+          <span class="status-label">DOMAIN</span>
+          <span class="status-text">Data, ML &amp; GenAI Engineering</span>
+        </div>
+        <div class="status-row" data-status="current">
+          <span class="status-label">CURRENT</span>
+          <span class="status-text">AI-assisted production data-pipeline migrations</span>
+        </div>
+        <div class="status-row" data-status="ml-genai">
+          <span class="status-label">ML/GENAI</span>
+          <span class="status-badges">
+            <span class="badge status-badge">RAG/Agentic RAG</span>
+            <span class="badge status-badge">PyTorch</span>
+            <span class="badge status-badge">Hugging Face</span>
+            <span class="badge status-badge">OpenAI API</span>
+            <span class="badge status-badge">AWS Bedrock</span>
+          </span>
+        </div>
+        <div class="status-row" data-status="data-systems">
+          <span class="status-label">DATA SYSTEMS</span>
+          <span class="status-badges">
+            <span class="badge status-badge">Scala/Spark</span>
+            <span class="badge status-badge">Airflow/EMR</span>
+            <span class="badge status-badge">AWS S3/Iceberg</span>
+            <span class="badge status-badge">Python/Jupyter</span>
+          </span>
         </div>
       </div>
 
