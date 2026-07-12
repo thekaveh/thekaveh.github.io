@@ -403,40 +403,60 @@
       border-radius: 3px;
       font-size: 11px;
     }
-    .card .open {
-      display: inline-block;
+    .icon-sprite {
+      position: absolute;
+      width: 0;
+      height: 0;
+      overflow: hidden;
+    }
+    .project-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
       margin-top: 14px;
-      padding: 3px 10px;
-      background: rgba(125,207,255,0.10);
-      border: 1px solid rgba(125,207,255,0.55);
+    }
+    .project-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border: 1px solid;
       border-radius: 9px;
-      color: var(--tn-cyan);
       font-size: 9px;
       font-weight: 700;
       letter-spacing: 0.12em;
       text-decoration: none;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease, color .15s ease;
     }
-    /* Stretched-link pattern: the OPEN pill's ::after overlays the whole
-       card so a click anywhere resolves to the repo, while the .site docs
-       link sits above it (z-index) and captures its own clicks. Keeps the
-       markup valid (no <a> nested inside <a>). */
-    .card .open::after {
-      content: "";
-      position: absolute;
-      inset: 0;
+    .project-action:hover {
+      transform: translateY(-1px);
     }
-    .card .site {
-      position: relative;
-      z-index: 1;
+    .project-action-icon {
+      width: 13px;
+      height: 13px;
+      flex: 0 0 13px;
       display: block;
-      margin-top: 12px;
-      font-family: var(--mono);
-      font-size: 11px;
-      color: var(--tn-cyan);
-      text-decoration: none;
-      opacity: 0.92;
     }
-    .card .site:hover { opacity: 1; text-decoration: underline; }
+    .project-action.repo {
+      color: var(--tn-purple);
+      background: rgba(187,154,247,0.10);
+      border-color: rgba(187,154,247,0.55);
+    }
+    .project-action.repo:hover {
+      color: #D4BEFF;
+      background: rgba(187,154,247,0.16);
+      border-color: rgba(212,190,255,0.78);
+    }
+    .project-action.docs {
+      color: var(--tn-cyan);
+      background: rgba(125,207,255,0.10);
+      border-color: rgba(125,207,255,0.55);
+    }
+    .project-action.docs:hover {
+      color: #A9DCFF;
+      background: rgba(125,207,255,0.16);
+      border-color: rgba(169,220,255,0.78);
+    }
 
     /* ============================================================
        Skills — each category is its OWN bordered card with header
@@ -823,6 +843,15 @@
 </head>
 <body>
 <main class="container">
+  <svg class="icon-sprite" aria-hidden="true" focusable="false">
+    <symbol id="icon-github" viewBox="0 0 16 16">
+      <path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z" />
+    </symbol>
+    <symbol id="icon-docs" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+      <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15Z" />
+    </symbol>
+  </svg>
 
   <!-- ============================================================
        HERO  (terminal-window chrome + block-art + identity + mission)
@@ -885,54 +914,120 @@
       <article class="card reveal">
         <h3>▸ atlas</h3>
         <p>Self-hosted, source-configurable, multi-disciplinary engineering platform — Gen-AI, ML &amp; data — composable from a single Docker Compose stack. 30+ OSS services (Ollama · LiteLLM · Supabase · n8n · Airflow · Spark · Weaviate · Neo4j · JupyterHub · Ray …) pre-wired behind Kong. Interactive TUI wizard, selectable tracks, one-command launch.</p>
-        <a class="open" href="https://github.com/thekaveh/atlas">OPEN ▸</a>
-        <a class="site" href="https://thekaveh.github.io/atlas/">▸ thekaveh.github.io/atlas</a>
+        <div class="project-actions">
+          <a class="project-action repo" data-action="repo" href="https://github.com/thekaveh/atlas" aria-label="Open atlas repository">
+            <svg class="project-action-icon" data-icon="github" aria-hidden="true"><use href="#icon-github"></use></svg>
+            <span>Repo</span>
+          </a>
+          <a class="project-action docs" data-action="docs" href="https://thekaveh.github.io/atlas/" aria-label="Open atlas documentation">
+            <svg class="project-action-icon" data-icon="docs" aria-hidden="true"><use href="#icon-docs"></use></svg>
+            <span>Docs</span>
+          </a>
+        </div>
       </article>
       <article class="card reveal">
         <h3>▸ rag-showcase</h3>
         <p>Six RAG strategies — vanilla, hybrid, contextual, graph, agentic, and n8n-adaptive — served as OpenAI-compatible endpoints selectable from the Open WebUI model picker on a fully-local Atlas stack, with a reproducible LLM judge-panel harness that measures which approach wins on which kind of question.</p>
-        <a class="open" href="https://github.com/thekaveh/rag-showcase">OPEN ▸</a>
-        <a class="site" href="https://thekaveh.github.io/rag-showcase/">▸ thekaveh.github.io/rag-showcase</a>
+        <div class="project-actions">
+          <a class="project-action repo" data-action="repo" href="https://github.com/thekaveh/rag-showcase" aria-label="Open rag-showcase repository">
+            <svg class="project-action-icon" data-icon="github" aria-hidden="true"><use href="#icon-github"></use></svg>
+            <span>Repo</span>
+          </a>
+          <a class="project-action docs" data-action="docs" href="https://thekaveh.github.io/rag-showcase/" aria-label="Open rag-showcase documentation">
+            <svg class="project-action-icon" data-icon="docs" aria-hidden="true"><use href="#icon-docs"></use></svg>
+            <span>Docs</span>
+          </a>
+        </div>
       </article>
       <article class="card reveal">
         <h3>▸ NNx</h3>
         <p>Lightweight PyTorch toolkit for training, fine-tuning, and exporting modern neural nets. FFN + GNN + decoder-only LM + diffusion + JEPA + MoE; PEFT (LoRA/DoRA/IA3/Prefix/Prompt), PTQ/QAT, pruning, surgery; ONNX/GGUF/Ollama/HuggingFace Hub interop. Dataclass-configured runs with fluent builders, automatic checkpointing, Plotly viz.</p>
-        <a class="open" href="https://github.com/thekaveh/NNx">OPEN ▸</a>
-        <a class="site" href="https://thekaveh.github.io/NNx/">▸ thekaveh.github.io/NNx</a>
+        <div class="project-actions">
+          <a class="project-action repo" data-action="repo" href="https://github.com/thekaveh/NNx" aria-label="Open NNx repository">
+            <svg class="project-action-icon" data-icon="github" aria-hidden="true"><use href="#icon-github"></use></svg>
+            <span>Repo</span>
+          </a>
+          <a class="project-action docs" data-action="docs" href="https://thekaveh.github.io/NNx/" aria-label="Open NNx documentation">
+            <svg class="project-action-icon" data-icon="docs" aria-hidden="true"><use href="#icon-docs"></use></svg>
+            <span>Docs</span>
+          </a>
+        </div>
       </article>
       <article class="card reveal">
         <h3>▸ ml-eng-lab</h3>
         <p>Self-contained notebook portfolio for PyTorch: classical ML, GNNs, NLP, transformer LM + BPE, DDPM diffusion, DPO, JEPA, MoE, PEFT (LoRA/DoRA), PTQ/QAT quantization, pruning, KD. Each <code>[task]-[dataset]-[model]-[framework]</code> folder runs end-to-end. CI-validated via shared <code>nnx</code> toolkit.</p>
-        <a class="open" href="https://github.com/thekaveh/ml-eng-lab">OPEN ▸</a>
-        <a class="site" href="https://thekaveh.github.io/ml-eng-lab/">▸ thekaveh.github.io/ml-eng-lab</a>
+        <div class="project-actions">
+          <a class="project-action repo" data-action="repo" href="https://github.com/thekaveh/ml-eng-lab" aria-label="Open ml-eng-lab repository">
+            <svg class="project-action-icon" data-icon="github" aria-hidden="true"><use href="#icon-github"></use></svg>
+            <span>Repo</span>
+          </a>
+          <a class="project-action docs" data-action="docs" href="https://thekaveh.github.io/ml-eng-lab/" aria-label="Open ml-eng-lab documentation">
+            <svg class="project-action-icon" data-icon="docs" aria-hidden="true"><use href="#icon-docs"></use></svg>
+            <span>Docs</span>
+          </a>
+        </div>
       </article>
       <article class="card reveal">
         <h3>▸ data-eng-lab</h3>
         <p>Full-featured Apache Iceberg lakehouse data engineering lab with 19 Spark scenarios in Scala and PySpark, 2 CI-verified Maven Scala Spark applications built by Jenkins and orchestrated by Airflow, Trino SQL and BI, Redpanda streaming, and a medallion architecture across bronze, silver, and gold layers using Docker Compose to run the Atlas platform.</p>
-        <a class="open" href="https://github.com/thekaveh/data-eng-lab">OPEN ▸</a>
-        <a class="site" href="https://thekaveh.github.io/data-eng-lab/">▸ thekaveh.github.io/data-eng-lab</a>
+        <div class="project-actions">
+          <a class="project-action repo" data-action="repo" href="https://github.com/thekaveh/data-eng-lab" aria-label="Open data-eng-lab repository">
+            <svg class="project-action-icon" data-icon="github" aria-hidden="true"><use href="#icon-github"></use></svg>
+            <span>Repo</span>
+          </a>
+          <a class="project-action docs" data-action="docs" href="https://thekaveh.github.io/data-eng-lab/" aria-label="Open data-eng-lab documentation">
+            <svg class="project-action-icon" data-icon="docs" aria-hidden="true"><use href="#icon-docs"></use></svg>
+            <span>Docs</span>
+          </a>
+        </div>
       </article>
       <article class="card reveal">
         <h3>▸ VMx</h3>
         <p>Hierarchical, lifecycle-aware MVVM framework. One language-neutral spec, four idiomatic flavors — C#, Python, TypeScript (full parity) + Swift (documented subset) — cross-checked by 232 shared conformance scenarios. Reactive-first (Rx · RxJS · reactivex · Combine). Published on NuGet, PyPI, npm, SwiftPM.</p>
-        <a class="open" href="https://github.com/thekaveh/VMx">OPEN ▸</a>
-        <a class="site" href="https://thekaveh.github.io/VMx/">▸ thekaveh.github.io/VMx</a>
+        <div class="project-actions">
+          <a class="project-action repo" data-action="repo" href="https://github.com/thekaveh/VMx" aria-label="Open VMx repository">
+            <svg class="project-action-icon" data-icon="github" aria-hidden="true"><use href="#icon-github"></use></svg>
+            <span>Repo</span>
+          </a>
+          <a class="project-action docs" data-action="docs" href="https://thekaveh.github.io/VMx/" aria-label="Open VMx documentation">
+            <svg class="project-action-icon" data-icon="docs" aria-hidden="true"><use href="#icon-docs"></use></svg>
+            <span>Docs</span>
+          </a>
+        </div>
       </article>
       <article class="card reveal">
         <h3>▸ aws-tui</h3>
         <p>Cross-platform Norton-Commander-style TUI for AWS and S3-compatible services. Powered by <code>Textual</code> + <code>VMx</code> MVVM. Runs on macOS, Linux, and Windows.</p>
-        <a class="open" href="https://github.com/thekaveh/aws-tui">OPEN ▸</a>
-        <a class="site" href="https://thekaveh.github.io/aws-tui/">▸ thekaveh.github.io/aws-tui</a>
+        <div class="project-actions">
+          <a class="project-action repo" data-action="repo" href="https://github.com/thekaveh/aws-tui" aria-label="Open aws-tui repository">
+            <svg class="project-action-icon" data-icon="github" aria-hidden="true"><use href="#icon-github"></use></svg>
+            <span>Repo</span>
+          </a>
+          <a class="project-action docs" data-action="docs" href="https://thekaveh.github.io/aws-tui/" aria-label="Open aws-tui documentation">
+            <svg class="project-action-icon" data-icon="docs" aria-hidden="true"><use href="#icon-docs"></use></svg>
+            <span>Docs</span>
+          </a>
+        </div>
       </article>
       <article class="card reveal">
         <h3>▸ GuideArch</h3>
         <p>Fuzzy multi-criteria decision analysis (TOPSIS) for software architecture. Three v1.0 implementations — TypeScript+Tauri+Svelte, C#+Avalonia, Python+NiceGUI — kept in lockstep by a shared language-neutral spec and a 1e-9-tolerance cross-impl conformance corpus. Built on <code>VMx</code> MVVM. Second-gen rebuild of the original Silverlight GuideArch.</p>
-        <a class="open" href="https://github.com/thekaveh/GuideArch">OPEN ▸</a>
+        <div class="project-actions">
+          <a class="project-action repo" data-action="repo" href="https://github.com/thekaveh/GuideArch" aria-label="Open GuideArch repository">
+            <svg class="project-action-icon" data-icon="github" aria-hidden="true"><use href="#icon-github"></use></svg>
+            <span>Repo</span>
+          </a>
+        </div>
       </article>
       <article class="card reveal">
         <h3>▸ LinguAI</h3>
         <p>GenAI language-learning app — chat with AI personas, polyglot translation puzzles scored via embeddings, streaming content generation/rewrite/review, skill assessments. FastAPI + Postgres + Ollama backend, strict-MVVM NiceGUI + <code>VMx</code> frontend, full Docker Compose stack.</p>
-        <a class="open" href="https://github.com/thekaveh/LinguAI">OPEN ▸</a>
+        <div class="project-actions">
+          <a class="project-action repo" data-action="repo" href="https://github.com/thekaveh/LinguAI" aria-label="Open LinguAI repository">
+            <svg class="project-action-icon" data-icon="github" aria-hidden="true"><use href="#icon-github"></use></svg>
+            <span>Repo</span>
+          </a>
+        </div>
       </article>
     </div>
   </section>
