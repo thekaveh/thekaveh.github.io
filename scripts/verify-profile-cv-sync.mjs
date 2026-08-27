@@ -27,6 +27,19 @@ assert.match(html, /401 shared conformance scenarios/);
 assert.match(html, /Rust/);
 assert.match(html, /crates\.io/);
 
+const connectStart = html.indexOf('<section id="connect"');
+const connectEnd = html.indexOf('</section>', connectStart);
+assert.ok(connectStart >= 0 && connectEnd > connectStart, "connect section is present");
+const connectCards = [...html.slice(connectStart, connectEnd).matchAll(
+  /<a class="service[^\"]*" href="([^\"]+)">[\s\S]*?<span>([^<]+)<\/span>/g,
+)].map(([, href, label]) => ({ href, label }));
+assert.deepEqual(connectCards, [
+  { href: "mailto:kaveh.razavi@gmail.com", label: "Email" },
+  { href: "https://sepanta.ai/", label: "Sepanta.ai" },
+  { href: "https://github.com/thekaveh", label: "GitHub" },
+  { href: "https://linkedin.com/in/kavehrazavi", label: "LinkedIn" },
+], "connect cards use the canonical order");
+
 const skills = skillData();
 assert.equal(skills.length, 7, "profile keeps seven visual skill groups");
 
