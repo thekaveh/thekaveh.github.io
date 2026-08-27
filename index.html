@@ -664,11 +664,11 @@
     }
 
     /* ============================================================
-       Connect — three accent-bordered service cards
+       Connect — four accent-bordered service cards
        ============================================================ */
     .connect-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 14px;
     }
     @media (max-width: 720px) { .connect-grid { grid-template-columns: 1fr; } }
@@ -687,9 +687,11 @@
     .service:hover { transform: translateY(-2px); }
     .service.linkedin { border-color: var(--tn-tk-blue); }
     .service.email    { border-color: var(--tn-green); }
+    .service.sepanta  { border-color: var(--tn-cyan); }
     .service.github   { border-color: var(--tn-purple); }
     .service:hover.linkedin { border-color: #A9C5FF; box-shadow: 0 12px 40px rgba(122,162,247,0.22); }
     .service:hover.email    { border-color: #BCE48C; box-shadow: 0 12px 40px rgba(158,206,106,0.22); }
+    .service:hover.sepanta  { border-color: var(--tn-bright); box-shadow: 0 12px 40px rgba(125,207,255,0.22); }
     .service:hover.github   { border-color: #D4BEFF; box-shadow: 0 12px 40px rgba(187,154,247,0.22); }
 
     .service .label {
@@ -717,6 +719,7 @@
     }
     .service.linkedin .label { color: var(--tn-tk-blue); }
     .service.email    .label { color: var(--tn-green); }
+    .service.sepanta  .label { color: var(--tn-cyan); }
     .service.github   .label { color: var(--tn-purple); }
     .service .handle  { color: var(--tn-fg); font-size: 12px; }
     .service .open    {
@@ -731,6 +734,7 @@
     }
     .service.linkedin .open { color: var(--tn-tk-blue); background: rgba(122,162,247,0.10); border-color: rgba(122,162,247,0.55); }
     .service.email    .open { color: var(--tn-green);   background: rgba(158,206,106,0.10); border-color: rgba(158,206,106,0.55); }
+    .service.sepanta  .open { color: var(--tn-cyan);    background: rgba(125,207,255,0.10); border-color: rgba(125,207,255,0.55); }
     .service.github   .open { color: var(--tn-purple);  background: rgba(187,154,247,0.10); border-color: rgba(187,154,247,0.55); }
 
     /* Footer */
@@ -1144,6 +1148,18 @@
           <span>Email</span>
         </div>
         <div class="handle">kaveh.razavi@gmail.com</div>
+        <span class="open">OPEN ▸</span>
+      </a>
+      <a class="service sepanta reveal" href="https://sepanta.ai/">
+        <div class="label">
+          <span class="prompt">▸</span>
+          <svg class="service-icon" data-icon="website" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9" />
+            <path d="M3 12h18M12 3c2.5 2.5 3.8 5.5 3.8 9S14.5 18.5 12 21c-2.5-2.5-3.8-5.5-3.8-9S9.5 5.5 12 3Z" />
+          </svg>
+          <span>Sepanta.ai</span>
+        </div>
+        <div class="handle">sepanta.ai</div>
         <span class="open">OPEN ▸</span>
       </a>
       <a class="service github reveal" href="https://github.com/thekaveh">
